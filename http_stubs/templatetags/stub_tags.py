@@ -1,6 +1,8 @@
-from typing import Dict
+from html import unescape
+from typing import AnyStr, Dict, List
 
 from django import template
+from django.template.defaultfilters import stringfilter
 
 Url = str
 
@@ -16,3 +18,15 @@ def get_absolute_url_tag(context: Dict, url: Url) -> Url:
     :returns: absolute url
     """
     return context.get('request').build_absolute_uri(url)
+
+
+@register.filter(name='str_to_list')
+@stringfilter
+def get_headers_list(headers: AnyStr, separator: AnyStr) -> List:
+    """Filter that creates a list from a string.
+
+    :param headers: string of headers
+    :param separator: separator to separate string
+    :returns: list of headers
+    """
+    return unescape(headers).lstrip('{').rstrip('}').split(separator)
