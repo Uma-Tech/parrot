@@ -67,12 +67,22 @@ class TestHTTPStubView:
         assert log.headers == {
             'Content-Length': '4',
             'Content-Type': content_type,
-            'Cookie': '',
         }
         assert log.body == 'test'
         assert log.http_stub == http_body
         assert log.method == HTTPMethod.POST.name
         assert log.path == 'http://testserver/default_path/'
+
+    def test_write_log_without_empty_headers(self, http_stub_factory, client):
+        """Tests request logging without empty headers.
+
+        :param http_stub_factory: HTTPStub factory
+        :param client: http client fixture
+        """
+        http_stub_factory(method=HTTPMethod.GET.name)
+        client.get('/default_path/')
+        log = LogEntry.objects.last()
+        assert log.headers == {}  # noqa:WPS520
 
     @pytest.mark.parametrize('method', HTTPMethod.names())
     def test_exist_regexp_stub(self, method: str, http_stub_factory, client):
