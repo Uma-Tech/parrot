@@ -1,5 +1,5 @@
 {% extends 'admin/http_stubs/includes/fieldset.html' %}
 {% load stub_tags %}
 {% block readonly_field %}
-    {% if field.field.name == 'headers' %}<ul class="readonly">{% for header in field.contents|str_to_list:"', " %}<li>{{ header|cut:"'" }}</li>{% endfor %}</ul>{% else %}<div class="readonly">{{ field.contents }}</div>{% endif %}
+    {% if field.field.name == 'headers' %}<ul class="readonly">{% for header in field.contents|headers_to_list:"', " %}<li>{{ header|cut:"'" }}</li>{% endfor %}</ul>{% else %}<div class="readonly">{{ field.contents }}</div>{% endif %}
 {% endblock %}

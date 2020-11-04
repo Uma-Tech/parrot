@@ -20,10 +20,10 @@ def get_absolute_url_tag(context: Dict, url: Url) -> Url:
     return context.get('request').build_absolute_uri(url)
 
 
-@register.filter(name='str_to_list')
+@register.filter(name='headers_to_list')
 @stringfilter
 def get_headers_list(headers: AnyStr, separator: AnyStr) -> List:
-    """Filter that creates a list from a string.
+    """Filter that creates a list from a string of headers(dict).
 
     :param headers: string of headers
     :param separator: separator to separate string
