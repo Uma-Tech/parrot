@@ -49,6 +49,7 @@ class LogEntryAdminInline(LogEntryMixin, admin.TabularInline):
 class LogEntryAdmin(LogEntryMixin, admin.ModelAdmin):
     """Log entries admin."""
 
+    change_form_template = 'admin/http_stubs/logentry/change_form.html'
     list_display = ('pk', 'date', 'http_stub', 'source_ip')
 
     list_filter = ('date', 'method', 'path', 'source_ip')
@@ -58,6 +59,7 @@ class LogEntryAdmin(LogEntryMixin, admin.ModelAdmin):
 class HTTPStubAdmin(admin.ModelAdmin):
     """HTTP stub admin."""
 
+    change_form_template = 'admin/http_stubs/httpstub/change_form.html'
     extra_buttons_style = 'background-color:#00b0ff;color:white'
 
     actions = ['enable_action', 'disable_action']
