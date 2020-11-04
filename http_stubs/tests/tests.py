@@ -9,6 +9,8 @@ from http_stubs.models import HTTPMethod, LogEntry
 class TestHTTPStubView:
     """Tests representation of the http stubs."""
 
+    path = '/default_path/'
+
     @pytest.mark.parametrize('method', HTTPMethod.names())
     def test_nonexistent_stub(self, method: str, client):
         """Tests response when stub is not found.
@@ -33,7 +35,7 @@ class TestHTTPStubView:
         :param client: http client fixture
         """
         http_stub_factory(method=method)
-        response = getattr(client, method.lower())('/default_path/')
+        response = getattr(client, method.lower())(self.path)
 
         if method != HTTPMethod.HEAD.name:
             assert response.content == b'[]'
@@ -49,7 +51,7 @@ class TestHTTPStubView:
         """
         content_type = 'text/plain'
         http_body = http_stub_factory(method=HTTPMethod.POST.name)
-        client.post('/default_path/', 'test', content_type=content_type)
+        client.post(self.path, 'test', content_type=content_type)
         log = LogEntry.objects.last()
 
         def _datefmt(date) -> str:  # noqa:WPS430
@@ -80,9 +82,9 @@ class TestHTTPStubView:
         :param client: http client fixture
         """
         http_stub_factory(method=HTTPMethod.GET.name)
-        client.get('/default_path/')
+        client.get(self.path)
         log = LogEntry.objects.last()
-        assert log.headers == {}  # noqa:WPS520
+        assert bool(log.headers) is False
 
     @pytest.mark.parametrize('method', HTTPMethod.names())
     def test_exist_regexp_stub(self, method: str, http_stub_factory, client):

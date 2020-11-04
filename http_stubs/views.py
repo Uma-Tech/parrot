@@ -65,7 +65,7 @@ class HTTPStubView(View):
             response[header_name] = header_value
         return response
 
-    def remove_empty_headers(self, headers: Dict) -> Dict:
+    def remove_empty_headers(self, headers: Dict[str, str]) -> Dict[str, str]:
         """Remove empty headers.
 
         :param headers: dictionary of headers
