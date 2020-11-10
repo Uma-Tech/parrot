@@ -4,6 +4,7 @@ from pathlib import Path
 env = environ.Env()
 
 BASE_DIR = Path(__file__).parent.parent
+environ.Env.read_env(str(BASE_DIR / '.env'))
 
 SECRET_KEY = '^c!x7!qejlut8=d3=mls9c%u-+(8t#&cfap5#=w%10t@&*b4=6'
 
