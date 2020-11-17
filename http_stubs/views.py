@@ -1,5 +1,5 @@
 from time import sleep
-from typing import Optional
+from typing import Dict, Optional
 
 from django.http import HttpRequest, HttpResponse, HttpResponseNotFound
 from django.views import View
@@ -52,7 +52,7 @@ class HTTPStubView(View):
             method=request.method,
             source_ip=request.META['REMOTE_ADDR'],
             body=request.body.decode('utf-8'),
-            headers=dict(request.headers),
+            headers=self.remove_empty_headers(request.headers),
             http_stub=stub,
         )
         sleep(stub.resp_delay / 1000)
@@ -64,3 +64,14 @@ class HTTPStubView(View):
         for header_name, header_value in stub.resp_headers.items():
             response[header_name] = header_value
         return response
+
+    def remove_empty_headers(self, headers: Dict[str, str]) -> Dict[str, str]:
+        """Remove empty headers.
+
+        :param headers: dictionary of headers
+        :returns: dictionary without empty headers
+        """
+        return {
+            header: header_value
+            for header, header_value in headers.items() if header_value != ''
+        }
