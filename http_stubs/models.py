@@ -85,6 +85,13 @@ class HTTPStub(models.Model):
         default=dict,
         blank=True,
     )
+    request_script = models.TextField(
+        verbose_name='BETA: Request script',
+        help_text='DANGEROUS ZONE: This feature is unstable and can completely'
+                  ' destroy this service. Language - python 3.8. The script'
+                  ' will be run on every call.',
+        blank=True,
+    )
 
     class Meta:
         verbose_name = 'http stub'
@@ -135,6 +142,10 @@ class LogEntry(models.Model):
         related_name='logs',
         blank=True,
         on_delete=models.CASCADE,
+    )
+    result_script = models.CharField(
+        verbose_name='Result script',
+        max_length=200,
     )
 
     class Meta:

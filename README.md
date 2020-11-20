@@ -62,13 +62,84 @@ Code quality:
 
 1. Service will be available at `http://127.0.0.1:8042/`
 
-## System requires
+## Start the project for development without Docker
+1. Clone the repo and go to the project directory
+    ```shell
+    git clone git@github.com:Uma-Tech/parrot.git && \
+    cd parrot
+    ```
+
+1. Install dependencies
+    ```shell
+    poetry install
+    ```
+
+1. Start databases  
+    _You can start databases in any other way_
+   ```shell
+    # start postgres
+   docker run \
+       --name postgres \
+       -d \
+       --rm \
+       -e POSTGRES_PASSWORD=parrot \
+       -e POSTGRES_USER=parrot \
+       --network host \
+       -v parrot_db:/var/lib/postgresql/data \
+       postgres
+   
+    # start redis
+   docker run \
+       --name redis \
+       -d \
+       --rm \
+       --network host \
+       redis 
+    ```
+
+1. Setting require environment variables  
+   _Alternative, you can create a local `.env` file with the variables_
+    ```shell
+    export PARROT_DB_HOST=127.0.0.1
+    export PARROT_SECRET_KEY=NO_SECRET
+    ```
+
+1. Build static
+    ```shell
+    poetry run python manage.py collectstatic
+    ```
+
+1. Apply database migrations
+    ```shell
+    poetry run python manage.py migrate
+    ```
+
+1. Create a django superuser
+    ```shell
+    poetry run python manage.py createsuperuser
+    ```
+
+1. Start the django app
+    ```shell
+    poetry run python manage.py runserver
+    ```
+
+1. Start the celery worker  
+   _Run in a separate terminal window_
+    ```shell
+    poetry run celery -A parrot worker -l INFO
+    ```
+    
+
+## System requirements
 * docker ([https://www.docker.com/](https://www.docker.com/))
 * docker-compose
     ([https://github.com/docker/compose](https://github.com/docker/compose))
 * make
     ([https://www.gnu.org/software/make/](https://www.gnu.org/software/make/))
     _(all commands can be viewed by calling `make` without parameters)_
+* poetry _(for development)_
+  ([https://python-poetry.org/](https://python-poetry.org/))
 
 ## Components
 1. Database postgres.
@@ -79,4 +150,3 @@ We welcome all contributions!
 See [CONTRIBUTING.md](CONTRIBUTING.md) if you want to contribute.  
 You can start with [issues that need some help](https://github.com/Uma-Tech/parrot/issues)
 right now.
-

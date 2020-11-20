@@ -47,6 +47,16 @@ class HTTPStubView(View):
         stub = self.find_stub(request.method, request.get_full_path())
         if not stub:
             return HttpResponseNotFound()
+
+        result_script: Optional[str] = None
+        if stub.request_script:
+            try:
+                exec(stub.request_script)
+            except Exception as err:
+                result_script = str(err)
+            else:
+                result_script = 'Done'
+
         LogEntry.objects.create(
             path=request.build_absolute_uri(),
             method=request.method,
@@ -54,13 +64,17 @@ class HTTPStubView(View):
             body=request.body.decode('utf-8'),
             headers=dict(request.headers),
             http_stub=stub,
+            result_script=result_script,
         )
+
         sleep(stub.resp_delay / 1000)
         response = HttpResponse(
             content=stub.resp_body,
             content_type=stub.resp_content_type,
             status=stub.resp_status,
         )
+
         for header_name, header_value in stub.resp_headers.items():
             response[header_name] = header_value
+
         return response
