@@ -27,4 +27,4 @@ class TestStubTags:
         """Check that the list of headers is empty."""
         headers = 'invalid headers format'
         headers_list = stub_tags.headers_to_list(headers)
-        assert headers_list == []
+        assert not headers_list
