@@ -20,7 +20,7 @@ class TestStubTags:
     def test_headers_to_list_filter(self):
         """Check that the list of headers is returned."""
         headers = '{"Content-Length": "2", "Accept": "text/html"}'
-        headers_list = stub_tags.get_headers_list(headers, ', ')
+        headers_list = stub_tags.headers_to_list(headers)
         assert (
-            headers_list == ['"Content-Length": "2"', '"Accept": "text/html"']
+            headers_list == ['Content-Length: 2', 'Accept: text/html']
         )

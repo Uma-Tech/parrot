@@ -33,7 +33,7 @@ def headers_to_list(headers: AnyStr) -> List:
     :returns: list of individual headers string representation
     """
     try:
-        headers = json.loads(unescape(headers).replace('\'', '\"'))
+        headers = json.loads(unescape(headers).replace("'", '"'))
     except (TypeError, JSONDecodeError):
         return []
     return [
