@@ -19,7 +19,8 @@ class TestStubTags:
         }
         relative_url = '/check/'
         form = HTTPStubAdmin(
-            HTTPStub, AdminSite).get_form(req)(initial={'regex_path': True})
+            HTTPStub, AdminSite,
+        ).get_form(req)(initial={'regex_path': True})
         fieldset = Fieldset(form)
         url = stub_tags.absolute_url({'request': req}, relative_url, fieldset)
         assert url == 'http://127.0.0.1'
@@ -33,14 +34,16 @@ class TestStubTags:
         }
         relative_url = '/check/'
         form = HTTPStubAdmin(
-            HTTPStub, AdminSite).get_form(req)(initial={'regex_path': False})
+            HTTPStub, AdminSite,
+        ).get_form(req)(initial={'regex_path': False})
         fieldset = Fieldset(form)
         url = stub_tags.absolute_url({'request': req}, relative_url, fieldset)
         assert url == 'http://127.0.0.1/check/'
 
     def test_absolute_url_tag_without_slash(self):
-        """Check that the absolute url is correct when relative url doesn`t
-        start with a slash.
+        """Check that the absolute url is correct.
+
+        When relative url doesn`t start with a slash.
         """
         req = HttpRequest()
         req.META = {
@@ -49,7 +52,8 @@ class TestStubTags:
         }
         relative_url = 'check'
         form = HTTPStubAdmin(
-            HTTPStub, AdminSite).get_form(req)(initial={'regex_path': False})
+            HTTPStub, AdminSite,
+        ).get_form(req)(initial={'regex_path': False})
         fieldset = Fieldset(form)
         url = stub_tags.absolute_url({'request': req}, relative_url, fieldset)
         assert url == 'http://127.0.0.1/check'

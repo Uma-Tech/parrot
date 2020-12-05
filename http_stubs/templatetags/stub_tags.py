@@ -2,7 +2,7 @@ import json
 from html import unescape
 from json import JSONDecodeError
 from typing import AnyStr, Dict, List
-from urllib import parse
+from urllib.parse import urlunparse
 
 from django import template
 from django.contrib.admin.helpers import Fieldset
@@ -20,14 +20,15 @@ def get_absolute_url(context: Dict, url: Url, fieldset: Fieldset) -> Url:
     :param context: context of request
     :param url: relative url
     :param fieldset: Fieldset that is used to get value of the 'regex_path'
-    field from the form
+                     field from the form
     :returns: absolute url
     """
     request = context['request']
     form = fieldset.form
     if form.initial.get('regex_path'):
-        return parse.urlunparse(
-            [request.scheme, request.get_host(), '', '', '', ''])
+        return urlunparse(
+            [request.scheme, request.get_host(), '', '', '', ''],
+        )
     if not url.startswith('/'):
         url = f'/{url}'
     return request.build_absolute_uri(url)
