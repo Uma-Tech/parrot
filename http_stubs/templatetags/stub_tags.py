@@ -14,12 +14,13 @@ register = template.Library()
 
 
 @register.simple_tag(takes_context=True, name='absolute')
-def get_absolute_url_tag(context: Dict, url: Url, fieldset: Fieldset) -> Url:
+def get_absolute_url(context: Dict, url: Url, fieldset: Fieldset) -> Url:
     """Tag that returns an absolute url.
 
     :param context: context of request
     :param url: relative url
-    :param fieldset: Fieldset of Django
+    :param fieldset: Fieldset that is used to get value of the 'regex_path'
+    field from the form
     :returns: absolute url
     """
     request = context['request']

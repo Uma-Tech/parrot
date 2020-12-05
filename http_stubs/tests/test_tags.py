@@ -21,8 +21,7 @@ class TestStubTags:
         form = HTTPStubAdmin(
             HTTPStub, AdminSite).get_form(req)(initial={'regex_path': True})
         fieldset = Fieldset(form)
-        url = stub_tags.get_absolute_url_tag(
-            {'request': req}, relative_url, fieldset)
+        url = stub_tags.absolute_url({'request': req}, relative_url, fieldset)
         assert url == 'http://127.0.0.1'
 
     def test_absolute_url_tag(self):
@@ -36,8 +35,7 @@ class TestStubTags:
         form = HTTPStubAdmin(
             HTTPStub, AdminSite).get_form(req)(initial={'regex_path': False})
         fieldset = Fieldset(form)
-        url = stub_tags.get_absolute_url_tag(
-            {'request': req}, relative_url, fieldset)
+        url = stub_tags.absolute_url({'request': req}, relative_url, fieldset)
         assert url == 'http://127.0.0.1/check/'
 
     def test_absolute_url_tag_without_slash(self):
@@ -53,8 +51,7 @@ class TestStubTags:
         form = HTTPStubAdmin(
             HTTPStub, AdminSite).get_form(req)(initial={'regex_path': False})
         fieldset = Fieldset(form)
-        url = stub_tags.get_absolute_url_tag(
-            {'request': req}, relative_url, fieldset)
+        url = stub_tags.absolute_url({'request': req}, relative_url, fieldset)
         assert url == 'http://127.0.0.1/check'
 
     def test_headers_to_list_filter(self):
