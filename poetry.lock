@@ -868,7 +868,7 @@ python-versions = "*"
 
 [[package]]
 name = "uvicorn"
-version = "0.12.3"
+version = "0.13.0"
 description = "The lightning-fast ASGI server."
 category = "main"
 optional = false
@@ -921,7 +921,7 @@ typing_extensions = ">=3.6,<4.0"
 [metadata]
 lock-version = "1.1"
 python-versions = "~3.8"
-content-hash = "761c495e8ac3bd7439a6022f3f5a73911888208ae6dcf03e0c818cbd74e3dc7d"
+content-hash = "130f433d59b1df9490a72eb5fc855f6e5cb3d2ea2f9ed76f09dddd356239e7a6"
 
 [metadata.files]
 appnope = [
@@ -1293,8 +1293,8 @@ typing-extensions = [
     {file = "typing_extensions-3.7.4.3.tar.gz", hash = "sha256:99d4073b617d30288f569d3f13d2bd7548c3a7e4c8de87db09a9d29bb3a4a60c"},
 ]
 uvicorn = [
-    {file = "uvicorn-0.12.3-py3-none-any.whl", hash = "sha256:562ef6aaa8fa723ab6b82cf9e67a774088179d0ec57cb17e447b15d58b603bcf"},
-    {file = "uvicorn-0.12.3.tar.gz", hash = "sha256:5836edaf4d278fe67ba0298c0537bdb6398cf359eb644f79e6500ca1aad232b3"},
+    {file = "uvicorn-0.13.0-py3-none-any.whl", hash = "sha256:5123606e0f1d15ffbe0f63161c5078f7c28f350c5eb102435671eae58046db0f"},
+    {file = "uvicorn-0.13.0.tar.gz", hash = "sha256:28420526640d800aabe648038f8e2ea8ba2a8bdc363002eecd5dfc57a0f75ab7"},
 ]
 wcwidth = [
     {file = "wcwidth-0.2.5-py2.py3-none-any.whl", hash = "sha256:beb4802a9cebb9144e99086eff703a642a13d6a0052920003a230f3294bbe784"},
