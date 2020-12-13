@@ -6,6 +6,14 @@
             {% for header in field.contents|headers_to_list %}
                 <li>{{ header }}</li>
             {% endfor %}</ul>
+    {% elif field.field.name == 'pretty_body' %}
+        <div class="readonly">
+            <pre>{{ field.contents }}</pre>
+        </div>
+    {% elif field.field.name == 'body' %}
+        <div class="readonly">
+            <div style="overflow:auto;width:85vw;">{{ field.contents }}</div>
+        </div>
     {% else %}
         <div class="readonly">{{ field.contents }}</div>{% endif %}
 {% endblock %}
