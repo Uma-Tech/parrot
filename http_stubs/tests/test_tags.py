@@ -5,7 +5,6 @@ from django.http.request import HttpRequest
 from http_stubs.admin import HTTPStubAdmin
 from http_stubs.models import HTTPStub
 from http_stubs.templatetags import stub_tags
-from http_stubs.templatetags import stub_tags
 
 
 class TestStubTags:
