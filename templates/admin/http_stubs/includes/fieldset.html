@@ -16,15 +16,6 @@
                     {% else %}
                         {{ field.label_tag }}
                         {% if field.is_readonly %}
-                            <div class="readonly">
-                                {% if field.field.name == 'pretty_body' %}
-                                    <pre>{{ field.contents }}</pre>
-                                {% elif field.field.name == 'body' %}
-                                    <div style="overflow:auto;width:85vw;">{{ field.contents }}</div>
-                                {% else %}
-                                    {{ field.contents }}
-                                {% endif %}
-                            </div>
                             {% block readonly_field %}
                                 <div class="readonly">{{ field.contents }}</div>
                             {% endblock %}
