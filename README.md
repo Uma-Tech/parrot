@@ -30,15 +30,15 @@ Code quality:
 1. Issue tracker: [https://github.com/Uma-Tech/parrot/issues](https://github.com/Uma-Tech/parrot/issues)
 1. Changelog: [https://github.com/Uma-Tech/parrot/blob/develop/CHANGELOG.md](https://github.com/Uma-Tech/parrot/blob/develop/CHANGELOG.md)
 
-## Quickstart
+## Quickstart (with Docker)
 1. Clone the repo
-    ```shell script
+    ```shell
     git clone git@github.com:Uma-Tech/parrot.git
     ```
 
 1. Build or download the docker image  
     _for build_
-    ```shell script
+    ```shell
     make build
     ```
     _for download_
@@ -47,7 +47,7 @@ Code quality:
     ```
 
 1. Apply migrations and create a superuser:
-    ```shell script
+    ```shell
     make shell
     # inside the container
     python manage.py migrate  # apply migrations
@@ -56,7 +56,7 @@ Code quality:
     ```
 
 1. Start app with required services
-    ```shell script
+    ```shell
     make runserver
     ```
 
@@ -102,6 +102,7 @@ Code quality:
     ```shell
     export PARROT_DB_HOST=127.0.0.1
     export PARROT_SECRET_KEY=NO_SECRET
+    export PARROT_CELERY_BROKER_URL=redis://127.0.0.1
     ```
 
 1. Build static
@@ -143,6 +144,7 @@ Code quality:
 
 ## Components
 1. Database postgres.
+1. Database redis (for background celery-tasks).
 1. Python-app based on Django Web Framework.
 
 ## Contributing
