@@ -14,7 +14,7 @@ from parrot import celery_app
 
 
 @celery_app.task()
-def run_request_script(log_id: int, script: str) -> None:
+def run_request_script(log_id: int, script: str, request_body: str) -> None:
     log: LogEntry = LogEntry.objects.get(pk=log_id)
     try:
         byte_code = compile_restricted(script)
@@ -26,6 +26,7 @@ def run_request_script(log_id: int, script: str) -> None:
         loc = {
             'requests': requests,
             'json': json,
+            'request_body': request_body,
         }
         exec(byte_code, {'__builtins__': builtins}, loc)
     except SoftTimeLimitExceeded:
