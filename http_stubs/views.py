@@ -49,13 +49,11 @@ class HTTPStubView(View):
         if not stub:
             return HttpResponseNotFound()
 
-        request_body = request.body.decode('utf-8')
-
         log = LogEntry.objects.create(
             path=request.build_absolute_uri(),
             method=request.method,
             source_ip=request.META['REMOTE_ADDR'],
-            body=request_body,
+            body=request.body.decode('utf-8'),
             headers=dict(request.headers),
             http_stub=stub,
             result_script='Was launched' if stub.request_script else '',
@@ -65,7 +63,7 @@ class HTTPStubView(View):
             run_request_script.delay(
                 log_id=log.pk,
                 script=stub.request_script,
-                request_body=request_body,
+                request_body=request.body.decode('utf-8'),
             )
 
         sleep(stub.resp_delay / 1000)
