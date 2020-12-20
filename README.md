@@ -128,7 +128,7 @@ Code quality:
 1. Start the celery worker  
    _Run in a separate terminal window_
     ```shell
-    poetry run celery -A parrot worker -l INFO
+    poetry run celery -A parrot worker -l INFO -c 4
     ```
     
 
