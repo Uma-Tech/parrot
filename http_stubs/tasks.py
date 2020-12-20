@@ -29,7 +29,7 @@ def run_request_script(log_id: int, script: str) -> None:
         }
         exec(byte_code, {'__builtins__': builtins}, loc)
     except SoftTimeLimitExceeded:
-        log.result_script = 'Time limit'
+        log.result_script = 'Error: Execution time limit'
     except Exception as err:
         log.result_script = f'Error: {err}'
     else:
