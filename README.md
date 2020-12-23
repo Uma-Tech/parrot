@@ -65,7 +65,7 @@ Code quality:
 ## Start the project for development without Docker
 1. Clone the repo and go to the project directory
     ```shell
-    git clone git@github.com:Uma-Tech/parrot.git && \
+    git clone git@github.com:Uma-Tech/parrot.git
     cd parrot
     ```
 
@@ -97,7 +97,7 @@ Code quality:
        redis 
     ```
 
-1. Setting require environment variables  
+1. Setting required environment variables  
    _Alternative, you can create a local `.env` file with the variables_
     ```shell
     export PARROT_DB_HOST=127.0.0.1
@@ -107,7 +107,7 @@ Code quality:
 
 1. Build static
     ```shell
-    poetry run python manage.py collectstatic
+    poetry run python manage.py collectstatic --no-input
     ```
 
 1. Apply database migrations

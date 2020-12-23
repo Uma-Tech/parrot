@@ -37,7 +37,7 @@ def run_request_script(log_id: int, script: str, request_body: str) -> None:
         }
         exec(byte_code, restricted_builtins, loc)  # noqa: S102, WPS421
     except SoftTimeLimitExceeded:
-        log.result_script = 'Error: Execution time limit'
+        log.result_script = 'Error: Execution time limit exceeded'
     except Exception as err:
         log.result_script = f'Error: {err}'
     else:
