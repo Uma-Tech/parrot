@@ -17,10 +17,15 @@ class TestStubTags:
             ('/check/', False, 'http://127.0.0.1/check/'),
             ('check', False, 'http://127.0.0.1/check'),
             (None, False, ''),
-        )
+        ),
     )
     def test_absolute_url_tag(self, relative_url, is_regex, expect):
-        """Check that the absolute url is correct."""
+        """Check that the absolute url is correct.
+
+        :param relative_url: a http-stub url
+        :param is_regex: regex url flag
+        :param expect: a expect absolute url
+        """
         req = HttpRequest()
         req.META = {
             'SERVER_NAME': '127.0.0.1',

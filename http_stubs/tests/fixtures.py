@@ -27,9 +27,10 @@ def http_stub_factory() -> Callable:
 
 
 @pytest.fixture
-def log_entity_factory(http_stub_factory) -> Callable:
-    """LogEntity factory.
+def log_entity_factory(http_stub_factory) -> Callable:  # noqa: WPS442
+    """Log Entity factory.
 
+    :param http_stub_factory: a factory for create a HttpStub
     :returns: factory closure
     """
     def factory(**kwargs) -> LogEntry:

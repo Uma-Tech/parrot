@@ -1,6 +1,7 @@
 import json
 
 import requests
+from billiard.exceptions import SoftTimeLimitExceeded
 from RestrictedPython import (
     compile_restricted,
     limited_builtins,
@@ -8,7 +9,6 @@ from RestrictedPython import (
     utility_builtins,
 )
 from RestrictedPython.Guards import full_write_guard
-from billiard.exceptions import SoftTimeLimitExceeded
 
 from http_stubs.models import LogEntry
 from parrot import celery_app
@@ -16,7 +16,7 @@ from parrot import celery_app
 restricted_builtins = {'__builtins__': {
     'requests': requests,
     'json': json,
-    '_getitem_': lambda d, k: d[k],
+    '_getitem_': lambda dict_obj, key: dict_obj[key],
     '_write_': full_write_guard,
     **safe_builtins,
     **limited_builtins,
