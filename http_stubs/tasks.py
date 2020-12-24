@@ -1,18 +1,23 @@
 import json
 
 import requests
-from billiard.exceptions import SoftTimeLimitExceeded
 from RestrictedPython import (
     compile_restricted,
     limited_builtins,
     safe_builtins,
     utility_builtins,
 )
+from RestrictedPython.Guards import full_write_guard
+from billiard.exceptions import SoftTimeLimitExceeded
 
 from http_stubs.models import LogEntry
 from parrot import celery_app
 
 restricted_builtins = {'__builtins__': {
+    'requests': requests,
+    'json': json,
+    '_getitem_': lambda d, k: d[k],
+    '_write_': full_write_guard,
     **safe_builtins,
     **limited_builtins,
     **utility_builtins,
@@ -28,14 +33,10 @@ def run_request_script(log_id: int, script: str, request_body: str) -> None:
     :param request_body: text body from a request
     """
     log: LogEntry = LogEntry.objects.get(pk=log_id)
-    try:  # noqa: WPS229
-        byte_code = compile_restricted(script)
-        loc = {
-            'requests': requests,
-            'json': json,
-            'request_body': request_body,
-        }
-        exec(byte_code, restricted_builtins, loc)  # noqa: S102, WPS421
+    loc = {'request_body': request_body, **restricted_builtins}
+    byte_code = compile_restricted(script)
+    try:
+        exec(byte_code, loc, None)  # noqa: S102, WPS421
     except SoftTimeLimitExceeded:
         log.result_script = 'Error: Execution time limit exceeded'
     except Exception as err:
