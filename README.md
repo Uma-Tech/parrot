@@ -94,7 +94,7 @@ Code quality:
        -d \
        --rm \
        --network host \
-       redis 
+       redis
     ```
 
 1. Setting required environment variables  
