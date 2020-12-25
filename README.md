@@ -98,7 +98,7 @@ Code quality:
     ```
 
 1. Setting required environment variables  
-   _Alternative, you can create a local `.env` file with the variables_
+   _Alternatively, you can create a local `.env` file with the variables_
     ```shell
     export PARROT_DB_HOST=127.0.0.1
     export PARROT_SECRET_KEY=NO_SECRET
