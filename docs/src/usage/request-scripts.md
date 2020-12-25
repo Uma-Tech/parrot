@@ -2,7 +2,9 @@
 
 ## For using it
 1. Create a http stub ([first steps](first-steps.html))
+    ![](../images/05.jpg)
 1. In the "request script" field, add a Python script
+    ![](../images/06.jpg)
 
 ## About scripts
 Request scripts support a secure subset of Python version 3.8.  
