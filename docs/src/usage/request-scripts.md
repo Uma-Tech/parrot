@@ -1,19 +1,18 @@
 # Use request scripts
 
 ## For using it
-1. Create a http stub ([first steps](first-steps.html))
+1. Create an http stub ([first steps](first-steps.html))
     ![](../images/05.jpg)
 1. In the "request script" field, add a Python script
     ![](../images/06.jpg)
 
 ## About scripts
 Request scripts support a secure subset of Python version 3.8.  
-Additionally, [json](https://docs.python.org/3/library/json.html) and [requests](https://requests.readthedocs.io/en/master/) modules are located in the scope of the script.  
+Additionally, [json](https://docs.python.org/3/library/json.html) and [requests](https://requests.readthedocs.io/en/master/) modules are available to the script.  
 As well as a special variable that stores the request body `request_body`.  
-You can use them.
 
 ## Examples
-### Requests for external resources
+### Calling external services
 ```python
 # get request
 requests.get('https://example.com/')

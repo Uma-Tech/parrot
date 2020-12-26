@@ -25,12 +25,12 @@
     exit  ## leave from the container
     ```
 
-1. Start app with required services
+1. Start the app and its dependencies
     ```shell
     make runserver
     ```
 
-1. Service will be available at `http://127.0.0.1:8042/`
+1. You will be able to access the service at `http://127.0.0.1:8042/`
 
 ## Start the project for development without Docker
 1. Clone the repo and go to the project directory

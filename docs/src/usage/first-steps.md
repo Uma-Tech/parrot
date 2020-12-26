@@ -1,6 +1,6 @@
 # First steps
 
-## Create a http-stub
+## Create an http-stub
 
 1. Go to `HTTP Stubs` -> `Stubs`
     ![](../images/03.jpg)
