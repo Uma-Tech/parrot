@@ -4,6 +4,7 @@
 1. Clone the repo
     ```shell
     git clone git@github.com:Uma-Tech/parrot.git
+    cd parrot
     ```
 
 1. Build or download the docker image  
@@ -68,12 +69,12 @@
     ```
 
 1. Setting required environment variables  
-   _Alternatively, you can create a local `.env` file with the variables_
     ```shell
     export PARROT_DB_HOST=127.0.0.1
     export PARROT_SECRET_KEY=NO_SECRET
     export PARROT_CELERY_BROKER_URL=redis://127.0.0.1
     ```
+   _Alternatively, you can create a local `.env` file with the variables_
 
 1. Build static
     ```shell
