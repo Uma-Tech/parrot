@@ -28,7 +28,7 @@ requests.put('https://example.com/', data=payload)
 For more examples, see the official documentation [https://requests.readthedocs.io/en/master/](https://requests.readthedocs.io/en/master/).
 
 ### Parsing the request body in json format
-For example, we use the preset variable `request_body`.  
+For example, use the preset variable `request_body`.  
 `request_body` is a variable containing a body of the request received by Parrot.
 ```python
 parsed_data = json.loads(request_body)
