@@ -1,5 +1,4 @@
-from enum import Enum
-from typing import Iterator, KeysView, Tuple
+from typing import Tuple
 
 from django.contrib.postgres.fields import HStoreField
 from django.core.validators import MaxValueValidator, MinValueValidator
@@ -7,7 +6,7 @@ from django.db import models
 from django.db.models import Lookup
 
 
-class HTTPMethod(Enum):
+class HTTPMethod(models.TextChoices):
     """Enumeration of the available HTTP methods."""
 
     GET = 'GET'
@@ -19,25 +18,9 @@ class HTTPMethod(Enum):
     OPTIONS = 'OPTIONS'
     TRACE = 'TRACE'
 
-    @classmethod
-    def names(cls) -> KeysView[str]:
-        """Set of the available HTTP method names.
 
-        :returns: all names in the enumeration.
-        """
-        return cls.__members__.keys()
-
-    @classmethod
-    def slugs(cls) -> Iterator[Tuple[str, str]]:
-        """Names of the methods for the model choice fields.
-
-        :returns: iterator of tuples with http method names
-        """
-        return zip(cls.names(), cls.names())
-
-
-class HTTPStub(models.Model):
-    """HTTP stub."""
+class AbstractHTTPStub(models.Model):
+    """Abstract HTTP stub."""
 
     is_active = models.BooleanField(
         verbose_name='Enabled',
@@ -57,7 +40,7 @@ class HTTPStub(models.Model):
         verbose_name='Request method',
         max_length=10,
         db_index=True,
-        choices=HTTPMethod.slugs(),
+        choices=HTTPMethod.choices,
     )
     resp_delay = models.PositiveIntegerField(
         verbose_name='Response delay',
@@ -91,15 +74,6 @@ class HTTPStub(models.Model):
         blank=True,
     )
 
-    class Meta:
-        verbose_name = 'http stub'
-        verbose_name_plural = 'stubs'
-        constraints = [
-            models.UniqueConstraint(
-                fields=('path', 'method'), name='uniq-path-method',
-            ),
-        ]
-
     def __str__(self):
         """Return string representation of the model.
 
@@ -107,9 +81,33 @@ class HTTPStub(models.Model):
         """
         return f'{self.method}: {self.path}'
 
+    class Meta:
+        abstract = True
+        constraints = [
+            models.UniqueConstraint(
+                fields=('path', 'method'), name='uniq-path-method',
+            ),
+        ]
 
-class LogEntry(models.Model):
-    """Log entry."""
+
+class HTTPStub(AbstractHTTPStub):
+    """HTTP stub."""
+
+    class Meta:
+        verbose_name = 'http stub'
+        verbose_name_plural = 'stubs'
+
+
+class ProxyHTTPStub(AbstractHTTPStub):
+    """Proxy HTTP stub."""
+
+    class Meta:
+        verbose_name = 'proxy http stub'
+        verbose_name_plural = 'proxy stubs'
+
+
+class AbstractLogEntry(models.Model):
+    """Abstract log entry."""
 
     path = models.URLField(
         verbose_name='Full request path',
@@ -118,7 +116,7 @@ class LogEntry(models.Model):
     method = models.CharField(
         verbose_name='Request method',
         max_length=10,
-        choices=HTTPMethod.slugs(),
+        choices=HTTPMethod.choices,
     )
     source_ip = models.GenericIPAddressField(
         verbose_name='Source IP',
@@ -157,6 +155,14 @@ class LogEntry(models.Model):
         :returns: empty string to make admin look cleaner
         """
         return ''
+
+
+class LogEntry(AbstractLogEntry):
+    """Log entry."""
+
+
+class ProxyLogEntity(AbstractLogEntry):
+    """Proxy log entry."""
 
 
 @models.CharField.register_lookup
