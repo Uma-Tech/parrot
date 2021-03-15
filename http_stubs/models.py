@@ -19,9 +19,8 @@ class HTTPMethod(models.TextChoices):
     TRACE = 'TRACE'
 
 
-
-class HTTPStub(models.Model):
-    """HTTP stub."""
+class AbstractHTTPStub(models.Model):
+    """Abstract HTTP stub."""
 
     is_active = models.BooleanField(
         verbose_name='Enabled',
@@ -75,15 +74,6 @@ class HTTPStub(models.Model):
         blank=True,
     )
 
-    class Meta:
-        verbose_name = 'http stub'
-        verbose_name_plural = 'stubs'
-        constraints = [
-            models.UniqueConstraint(
-                fields=('path', 'method'), name='uniq-path-method',
-            ),
-        ]
-
     def __str__(self):
         """Return string representation of the model.
 
@@ -91,9 +81,33 @@ class HTTPStub(models.Model):
         """
         return f'{self.method}: {self.path}'
 
+    class Meta:
+        abstract = True
+        constraints = [
+            models.UniqueConstraint(
+                fields=('path', 'method'), name='uniq-path-method',
+            ),
+        ]
 
-class LogEntry(models.Model):
-    """Log entry."""
+
+class HTTPStub(AbstractHTTPStub):
+    """HTTP stub."""
+
+    class Meta:
+        verbose_name = 'http stub'
+        verbose_name_plural = 'stubs'
+
+
+class ProxyHTTPStub(AbstractHTTPStub):
+    """Proxy HTTP stub."""
+
+    class Meta:
+        verbose_name = 'proxy http stub'
+        verbose_name_plural = 'proxy stubs'
+
+
+class AbstractLogEntry(models.Model):
+    """Abstract log entry."""
 
     path = models.URLField(
         verbose_name='Full request path',
@@ -141,6 +155,14 @@ class LogEntry(models.Model):
         :returns: empty string to make admin look cleaner
         """
         return ''
+
+
+class LogEntry(AbstractLogEntry):
+    """Log entry."""
+
+
+class ProxyLogEntity(AbstractLogEntry):
+    """Proxy log entry."""
 
 
 @models.CharField.register_lookup
