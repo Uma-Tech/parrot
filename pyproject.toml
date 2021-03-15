@@ -24,13 +24,13 @@ python = "~3.8"
 django = "~3.1"
 django-simpleui = "~2021.1"
 uvicorn = "~0.13.2"
-psycopg2 = "~2.8.6"
 django-environ = "^0.4.5"
 django-extensions = "^3.1.0"
 django-debug-toolbar = "^3.1.1"
 celery = {extras = ["redis"], version = "^5.0.4"}
 RestrictedPython = "~5.1"
 requests = "^2.25.1"
+psycopg2-binary = "^2.8.6"
 
 [tool.poetry.dev-dependencies]
 pytest = "~6.2"
