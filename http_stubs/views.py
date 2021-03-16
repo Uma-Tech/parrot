@@ -49,19 +49,22 @@ class HTTPStubView(View):
         if not stub:
             return HttpResponseNotFound()
 
-        log = LogEntry.objects.create(
-            path=request.build_absolute_uri(),
-            method=request.method,
-            source_ip=request.META['REMOTE_ADDR'],
-            body=request.body.decode('utf-8'),
-            headers=dict(request.headers),
-            http_stub=stub,
-            result_script='Was launched' if stub.request_script else '',
-        )
+        log = None
+
+        if stub.is_logging_enabled:
+            log = LogEntry.objects.create(
+                path=request.build_absolute_uri(),
+                method=request.method,
+                source_ip=request.META['REMOTE_ADDR'],
+                body=request.body.decode('utf-8'),
+                headers=dict(request.headers),
+                http_stub=stub,
+                result_script='Was launched' if stub.request_script else '',
+            )
 
         if stub.request_script:
             run_request_script.delay(
-                log_id=log.pk,
+                log_id=log.pk if log else None,
                 script=stub.request_script,
                 request_body=request.body.decode('utf-8'),
             )
