@@ -27,9 +27,9 @@ restricted_builtins = {'__builtins__': {
 
 @celery_app.task()
 def run_request_script(
-    log_id: Optional[int],
     script: str,
     request_body: str,
+    log_id: Optional[int] = None,
 ) -> None:
     """Task for run custom scripts from http stubs.
 
@@ -38,7 +38,7 @@ def run_request_script(
     :param request_body: text body from a request
     """
     log: Optional[LogEntry] = None
-    if log_id:
+    if log_id is not None:
         log = LogEntry.objects.get(pk=log_id)
 
     loc = {'request_body': request_body, **restricted_builtins}
@@ -52,6 +52,6 @@ def run_request_script(
     else:
         log_msg = 'Done'
 
-    if log:
+    if log is not None:
         log.result_script = log_msg
         log.save()

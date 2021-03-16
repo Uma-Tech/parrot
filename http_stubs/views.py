@@ -64,9 +64,9 @@ class HTTPStubView(View):
 
         if stub.request_script:
             run_request_script.delay(
-                log_id=log.pk if log else None,
                 script=stub.request_script,
                 request_body=request.body.decode('utf-8'),
+                log_id=log.pk if log else None,
             )
 
         sleep(stub.resp_delay / 1000)
