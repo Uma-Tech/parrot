@@ -51,7 +51,7 @@ class HTTPStubView(View):
 
         log = None
 
-        if stub.is_logging_enabled:
+        if stub.enable_logging:
             log = LogEntry.objects.create(
                 path=request.build_absolute_uri(),
                 method=request.method,

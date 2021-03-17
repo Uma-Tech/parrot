@@ -12,7 +12,7 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AddField(
             model_name='httpstub',
-            name='is_logging_enabled',
+            name='enable_logging',
             field=models.BooleanField(default=False, help_text='Enables logging of requests', verbose_name='Logging'),
         ),
     ]

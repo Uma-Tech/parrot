@@ -53,7 +53,7 @@ class TestHTTPStubView:
             path='/regex/',
             regex_path=True,
             request_script='a = 1',
-            is_logging_enabled=True,
+            enable_logging=True,
         )
 
         request_path = f'/regex/?query={"search" * 300}'

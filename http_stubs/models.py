@@ -90,7 +90,7 @@ class HTTPStub(models.Model):
         help_text='Language: python 3.8. The script will run on each request.',
         blank=True,
     )
-    is_logging_enabled = models.BooleanField(
+    enable_logging = models.BooleanField(
         verbose_name='Logging',
         help_text='Enables logging of requests',
         default=False,
