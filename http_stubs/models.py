@@ -53,6 +53,11 @@ class HTTPStub(models.Model):
         help_text='Path is a regular expression',
         default=False,
     )
+    enable_logging = models.BooleanField(
+        verbose_name='Logging',
+        help_text='Enables logging of requests',
+        default=False,
+    )
     method = models.CharField(
         verbose_name='Request method',
         max_length=10,
@@ -89,11 +94,6 @@ class HTTPStub(models.Model):
         verbose_name='Request script',
         help_text='Language: python 3.8. The script will run on each request.',
         blank=True,
-    )
-    enable_logging = models.BooleanField(
-        verbose_name='Logging',
-        help_text='Enables logging of requests',
-        default=False,
     )
 
     class Meta:
