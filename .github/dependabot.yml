@@ -1,0 +1,38 @@
+version: 2
+updates:
+- package-ecosystem: pip
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "02:00"
+  open-pull-requests-limit: 10
+  assignees:
+  - lowitea
+  labels:
+  - dependencies
+  ignore:
+  - dependency-name: django-extensions
+    versions:
+    - 3.1.2
+  - dependency-name: django-simpleui
+    versions:
+    - "2021.2"
+    - "2021.4"
+    - 2021.4.1
+  - dependency-name: urllib3
+    versions:
+    - 1.26.3
+  - dependency-name: wemake-python-styleguide
+    versions:
+    - 0.15.0
+    - 0.15.1
+  - dependency-name: ipython
+    versions:
+    - 7.20.0
+  - dependency-name: django
+    versions:
+    - 3.1.5
+    - 3.1.6
+  - dependency-name: uvicorn
+    versions:
+    - 0.13.3
