@@ -1,3 +1,5 @@
+# The project was moved to [https://github.com/NUTtech/Kesha](https://github.com/NUTtech/Kesha)
+
 # Parrot
 _Web-service for testing http requests and webhooks._
 
